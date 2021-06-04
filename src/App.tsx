@@ -1,18 +1,30 @@
-import Header from "components/Header";
-import Home from "pages/Home";
-import NoMatch from "pages/NoMatch";
+import Navigation from "components/Navigation";
+import { Campaign, Comment, Coupon, Home, Member, Monster, NoMatch, Pinpoint } from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import styled from "styled-components";
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="*" component={NoMatch} />
-      </Switch>
-    </Router>
+    <Container>
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/Comment" component={Comment} />
+          <Route path="/Campaign" component={Campaign} />
+          <Route path="/Pinpoint" component={Pinpoint} />
+          <Route path="/Coupon" component={Coupon} />
+          <Route path="/Member" component={Member} />
+          <Route path="/Monster" component={Monster} />
+          <Route path="*" component={NoMatch} />
+        </Switch>
+      </Router>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+`
 
 export default App;

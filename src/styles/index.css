@@ -1,13 +1,119 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url(./reset.css);
+@import url(./modal.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+:root {
+  --font-size: 16px;
+  --app-bg-color: rgb(229, 231, 235);
+  --container-bg-color: rgb(255, 255, 255);
+  --label-color: rgb(107, 114, 128);
+  --border-color: rgb(209, 213, 219);
+  --border-radius: .5rem;
+  --button-bg-color: rgb(255, 255, 255);
+  --button-hover-bg-color: rgb(229, 231, 235);
+  --primary-button-bg-color: rgb(59, 130, 246);
+  --primary-button-hover-bg-color: rgb(96, 165, 250);
+  --input-color: rgb(75, 85, 99);
+  --input-border-radius: .25rem;
+  --placeholder-color: rgb(156, 163, 175);
+  --table-th-bg-color: rgb(239, 246, 255);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--font-size);
+}
+
+.container {
+  background-color: var(--container-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  padding: 1rem;
+}
+
+.container.login-page {
+  width: 100%;
+  max-width: 480px;
+}
+
+.flex-row-between {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* 인풋 */
+
+input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-border-radius);
+  color: var(--input-color);
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: .5rem .75rem;
+  margin: .5rem 0 1rem;
+}
+
+input.query {
+  margin: 0px;
+}
+
+input::placeholder {
+  color: var(--placeholder-color);
+}
+
+label {
+  color: var(--label-color)
+}
+
+/* 버튼 */
+
+button {
+  cursor: pointer;
+  background-color: var(--button-bg-color);
+  padding: .5rem .75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+button.primary {
+  background-color: var(--primary-button-bg-color);
+  color: white;
+  border-width: 0;
+}
+
+button.primary:hover {
+  background-color: var(--primary-button-hover-bg-color);
+}
+
+/* 테이블 */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table th {
+  padding: .5rem .75rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--table-th-bg-color);
+}
+
+table td {
+  padding: .5rem .75rem;
+  border: 1px solid var(--border-color);
 }

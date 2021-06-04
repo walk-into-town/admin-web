@@ -1,4 +1,5 @@
 {
+  "proxy": "https://walk-into-town.kro.kr",
   "name": "my-ts-app",
   "version": "0.1.0",
   "private": true,
@@ -22,9 +23,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco  start",
-    "build": "craco  build",
-    "test": "craco  test",
+    "start": "env FAST_REFRESH=false craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

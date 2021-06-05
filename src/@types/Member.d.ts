@@ -3,13 +3,16 @@ declare module "@types" {
         id: string,
         pw: string,
         nickname: string,
+        profileImg: string,
         selfIntroduction: string,
         isManager: boolean,
+
         badge: string[],
         primeBadge: string,
         comments: MemberComment[],
         coupons: MemberCoupon[],
-        myCampaigns: stringp[]
+        myCampaigns: string[],
+        playingCampaigns: PlayingCampaign[]
     }
 
     type MemberComment = {
@@ -21,5 +24,10 @@ declare module "@types" {
     type MemberCoupon = {
         id: string,
         used: boolean
+    }
+
+    type PlayingCampaign = {
+        cleard: boolean,
+        id: string
     }
 }

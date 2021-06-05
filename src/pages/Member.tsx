@@ -10,15 +10,20 @@ interface Props {
 const Member = (props: Props) => {
 
     const [memberList, setMemberList] = useState<IMember[]>([])
-    const [input, setInput] = useState("")
+    const [searchList, setSearchList] = useState<IMember[]>([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getMembers()
     }, [])
-    useEffect(() => {
-        console.log(input)
-    }, [input])
+
+    const onSearch = (text: string) => {
+        setSearchList(memberList.filter(member => (
+            member.id.includes(text)
+            || member.nickname.includes(text)
+            || member.selfIntroduction.includes(text)
+        )))
+    }
 
     // api
     const getMembers = () => {
@@ -30,10 +35,10 @@ const Member = (props: Props) => {
                 return alert(`${error} ${errdesc}`)
 
             setMemberList(data)
+            setSearchList(data)
         }
         init()
     }
-
 
     return (
         <Container>
@@ -43,7 +48,7 @@ const Member = (props: Props) => {
             </HeaderWrapper>
 
             <label htmlFor="search">검색</label>
-            <input type="text" onChange={(e) => setInput(e.target.value)} name="search" />
+            <input type="text" onChange={(e) => onSearch(e.target.value)} name="search" placeholder="id, nickname, selfIntroduction" />
 
             {
                 loading ?
@@ -61,7 +66,7 @@ const Member = (props: Props) => {
                         </thead>
                         <tbody>
                             {
-                                memberList.map(v => (
+                                searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>{v.id}</td>
                                         <td>{v.pw}</td>

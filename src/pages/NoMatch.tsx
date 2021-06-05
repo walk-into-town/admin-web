@@ -1,5 +1,5 @@
 import { useLocation } from "react-router";
-import { Container, HeaderWrapper, Title } from "styles/global";
+import { Container, HeaderWrapper } from "styles/global";
 
 interface Props {
 

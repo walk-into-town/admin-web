@@ -7,15 +7,20 @@ import { toCommonDate } from '../util'
 
 const Coupon = () => {
     const [couponList, setCouponList] = useState<ICoupon[]>([])
-    const [input, setInput] = useState("")
+    const [searchList, setSearchList] = useState<ICoupon[]>([])
     const [loading, setLoading] = useState(false)
 
+    const onSearch = (text: string) => {
+        setSearchList(couponList.filter(v => (
+            v.name.includes(text)
+            || v.id === text
+            || v.description.includes(text)
+            || v.goods.includes(text)
+        )))
+    }
     useEffect(() => {
         getCoupons()
     }, [])
-    useEffect(() => {
-        console.log(input)
-    }, [input])
 
     // api
     const getCoupons = () => {
@@ -27,6 +32,7 @@ const Coupon = () => {
                 return alert(`${error} ${errdesc}`)
 
             setCouponList(data)
+            setSearchList(data)
         }
         init()
     }
@@ -39,8 +45,13 @@ const Coupon = () => {
                 <button onClick={() => getCoupons()}>새로고침</button>
             </HeaderWrapper>
 
-            <label htmlFor="search">검색</label>
-            <input type="text" onChange={(e) => setInput(e.target.value)} name="search" />
+            <label htmlFor="search">검색 <span style={{ fontSize: 13, marginLeft: 4 }}>* id는 완전 일치</span></label>
+            <input
+                type="text"
+                name="search"
+                onChange={(e) => onSearch(e.target.value)}
+                placeholder="name, id, description, goods"
+            />
 
             {
                 loading ?
@@ -62,7 +73,7 @@ const Coupon = () => {
                         </thead>
                         <tbody>
                             {
-                                couponList.map(v => (
+                                searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>
                                             {v.imgs !== "" && <img src={v.imgs} alt="쿠폰 이미지" width="50" />}

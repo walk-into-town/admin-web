@@ -11,15 +11,22 @@ interface Props {
 const Campaign = (props: Props) => {
 
     const [campaignList, setCampaignList] = useState<ICampaign[]>([])
-    const [input, setInput] = useState("")
+    const [searchList, setSearchList] = useState<ICampaign[]>([])
     const [loading, setLoading] = useState(false)
+
+    const onSearch = (text: string) => {
+        setSearchList(campaignList.filter(v => (
+            v.name.includes(text)
+            || v.id === text
+            || v.ownner.includes(text)
+            || v.description.includes(text)
+            || v.region.includes(text)
+        )))
+    }
 
     useEffect(() => {
         getCampaigns()
     }, [])
-    useEffect(() => {
-        console.log(input)
-    }, [input])
 
     // api
     const getCampaigns = () => {
@@ -31,6 +38,7 @@ const Campaign = (props: Props) => {
                 return alert(`${error} ${errdesc}`)
 
             setCampaignList(data)
+            setSearchList(data)
         }
         init()
     }
@@ -43,8 +51,13 @@ const Campaign = (props: Props) => {
                 <button onClick={() => getCampaigns()}>새로고침</button>
             </HeaderWrapper>
 
-            <label htmlFor="search">검색</label>
-            <input type="text" onChange={(e) => setInput(e.target.value)} name="search" />
+            <label htmlFor="search">검색 <span style={{ fontSize: 13, marginLeft: 4 }}>* id는 완전 일치</span></label>
+            <input
+                type="text"
+                name="search"
+                onChange={(e) => onSearch(e.target.value)}
+                placeholder="name, id, ownner, description, region"
+            />
 
             {
                 loading ?
@@ -63,7 +76,7 @@ const Campaign = (props: Props) => {
                         </thead>
                         <tbody>
                             {
-                                campaignList.map(v => (
+                                searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>{v.name}</td>
                                         <td>{v.id}</td>

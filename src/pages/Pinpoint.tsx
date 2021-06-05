@@ -7,15 +7,20 @@ import { toCommonDateTime } from '../util'
 
 const Pinpoint = () => {
     const [pinpointList, setPinpointList] = useState<IPinPoint[]>([])
-    const [input, setInput] = useState("")
+    const [searchList, setSearchList] = useState<IPinPoint[]>([])
     const [loading, setLoading] = useState(false)
+
+    const onSearch = (text: string) => {
+        setSearchList(pinpointList.filter(v => (
+            v.name.includes(text)
+            || v.id === text
+            || v.description.includes(text)
+        )))
+    }
 
     useEffect(() => {
         getPinpoint()
     }, [])
-    useEffect(() => {
-        console.log(input)
-    }, [input])
 
     // api
     const getPinpoint = () => {
@@ -26,8 +31,8 @@ const Pinpoint = () => {
             if (result === "failed" || data === undefined)
                 return alert(`${error} ${errdesc}`)
 
-            console.log(data)
             setPinpointList(data)
+            setSearchList(data)
         }
         init()
     }
@@ -40,8 +45,14 @@ const Pinpoint = () => {
                 <button onClick={() => getPinpoint()}>새로고침</button>
             </HeaderWrapper>
 
-            <label htmlFor="search">검색</label>
-            <input type="text" onChange={(e) => setInput(e.target.value)} name="search" />
+
+            <label htmlFor="search">검색 <span style={{ fontSize: 13, marginLeft: 4 }}>* id는 완전 일치</span></label>
+            <input
+                type="text"
+                name="search"
+                onChange={(e) => onSearch(e.target.value)}
+                placeholder="name, id, description"
+            />
 
             {
                 loading ?
@@ -61,7 +72,7 @@ const Pinpoint = () => {
                         </thead>
                         <tbody>
                             {
-                                pinpointList.map(v => (
+                                searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>{v.name}</td>
                                         <td>{v.id}</td>

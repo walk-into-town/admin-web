@@ -1,4 +1,4 @@
-import { Campaign, Coupon, Member, PinPoint } from "@types"
+import { Campaign, Coupon, Member, PinPoint, Report } from "@types"
 import axios, { AxiosResponse } from "axios"
 
 type Res<T> = AxiosResponse<{
@@ -19,6 +19,20 @@ export const pinpointRead = async (): Promise<Res<PinPoint[]>> => {
 }
 export const couponRead = async (): Promise<Res<Coupon[]>> => {
     return await axios.get(`/debug/scan/coupon`)
+}
+
+export const reportRead = async (): Promise<Res<Report[]>> => {
+    return await axios.get(`/debug/scan/report`)
+}
+type ReportConfirmData = {
+    reid: string,
+    time: string,
+    targetUser: string
+}
+export const reportConfirm = async (data: ReportConfirmData): Promise<Res<string>> => {
+    return await axios.put(`/manager/report`, data, {
+        data
+    })
 }
 
 type MosterArray = {

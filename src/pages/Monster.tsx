@@ -66,6 +66,7 @@ const Monster = () => {
             <Modal useVisible={[modalVisible, setModalVisible]}>
                 <img
                     src={selectedImg}
+                    width="150" height="150"
                     alt="modal img"
                 />
             </Modal>

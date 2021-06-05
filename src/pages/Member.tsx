@@ -2,6 +2,8 @@ import { Member as IMember } from '@types'
 import React, { useEffect, useState } from 'react'
 import { memberRead } from '../api'
 import { Container, HeaderWrapper, Title } from 'styles/global'
+import IDViewer from 'components/IDViewer'
+import ImgsViewer from 'components/ImgsViewer'
 
 interface Props {
 
@@ -34,6 +36,7 @@ const Member = (props: Props) => {
             if (result === "failed" || data === undefined)
                 return alert(`${error} ${errdesc}`)
 
+            console.log(data)
             setMemberList(data)
             setSearchList(data)
         }
@@ -57,11 +60,16 @@ const Member = (props: Props) => {
                     <table>
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>pw</th>
-                                <th>nickname</th>
-                                <th>selfIntroduction</th>
-                                <th>isManager</th>
+                                <th>ID</th>
+                                <th>PW</th>
+                                <th>사진</th>
+                                <th>Nickname</th>
+                                <th>SelfIntroduction</th>
+                                <th>타입</th>
+                                <th>댓글 수</th>
+                                <th>캠페인 수</th>
+                                <th>참여 진척</th>
+                                <th>쿠폰 수</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,10 +77,19 @@ const Member = (props: Props) => {
                                 searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>{v.id}</td>
-                                        <td>{v.pw}</td>
+                                        <td><IDViewer id={v.pw} /></td>
+                                        <td><ImgsViewer imgs={[v.profileImg]} /></td>
                                         <td>{v.nickname}</td>
                                         <td>{v.selfIntroduction}</td>
-                                        <td>{v.isManager}</td>
+                                        <td>{v.isManager ? "관리자" : "유저"}</td>
+                                        <td align="center">{v.comments.length}</td>
+                                        <td align="center">{v.myCampaigns.length}</td>
+                                        <td align="center">
+                                            {v.playingCampaigns.filter(c => c.cleard).length}/{v.playingCampaigns.length}
+                                        </td>
+                                        <td align="center">
+                                            {v.coupons.filter(c => !c.used).length}/{v.coupons.length}
+                                        </td>
                                     </tr>
                                 ))
                             }

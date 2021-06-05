@@ -16,9 +16,14 @@ export const Title = styled.h1`
     font-weight: 700;
 `
 
+export const SubTitle = styled.h2`
+    font-size: 24px;
+    font-weight: 700;
+`
+
 export const Container = styled.div`
     width: 100vw;
-    padding: 58px;
+    padding: 56px;
 `
 
 export const HeaderWrapper = styled.div`
@@ -27,4 +32,10 @@ export const HeaderWrapper = styled.div`
     & > button {
         margin-left: auto;
     }
+`
+
+export const Card = styled.div`
+    background-color: white;
+    border-radius: 1rem;
+    padding: 40px;
 `

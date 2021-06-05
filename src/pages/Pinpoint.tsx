@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { pinpointRead } from '../api'
 import { Container, HeaderWrapper, Title } from 'styles/global'
 import { toCommonDateTime } from '../util'
+import IDViewer from 'components/IDViewer'
+import ImgsViewer from 'components/ImgsViewer'
 
 
 const Pinpoint = () => {
@@ -61,13 +63,16 @@ const Pinpoint = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>name</th>
-                                <th>id</th>
-                                <th>description</th>
-                                <th>latitude</th>
-                                <th>longitude</th>
-                                <th>updateTime</th>
-                                <th>imgs</th>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Imgs</th>
+                                <th>Description</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>UpdateTime</th>
+                                <th>퀴즈</th>
+                                <th>댓글</th>
+                                <th>쿠폰</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,16 +80,15 @@ const Pinpoint = () => {
                                 searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>{v.name}</td>
-                                        <td>{v.id}</td>
+                                        <td><IDViewer id={v.id} /></td>
+                                        <td><ImgsViewer imgs={v.imgs} /></td>
                                         <td>{v.description}</td>
                                         <td>{v.latitude}</td>
                                         <td>{v.longitude}</td>
                                         <td>{toCommonDateTime(v.updateTime)}</td>
-                                        <td>
-                                            <div style={{ display: "flex" }}>
-                                                {v.imgs.map((uri, idx) => <img src={uri} alt="pinpoint img" width={50} key={idx} />)}
-                                            </div>
-                                        </td>
+                                        <td><button onClick={() => console.log(v.quiz)}>보기</button></td>
+                                        <td>{v.comments.length}</td>
+                                        <td>{v.coupons.length}</td>
                                     </tr>
                                 ))
                             }

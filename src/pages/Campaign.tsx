@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { campaignRead } from '../api'
 import { Container, HeaderWrapper, Title } from 'styles/global'
 import { toCommonDateTime } from '../util'
+import IDViewer from 'components/IDViewer'
+import ImgsViewer from 'components/ImgsViewer'
 
 interface Props {
 
@@ -66,12 +68,17 @@ const Campaign = (props: Props) => {
                     <table>
                         <thead>
                             <tr>
-                                <th>name</th>
-                                <th>id</th>
-                                <th>ownner</th>
-                                <th>description</th>
-                                <th>updateTime</th>
-                                <th>region</th>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Imgs</th>
+                                <th>Ownner</th>
+                                <th>Description</th>
+                                <th>UpdateTime</th>
+                                <th>Region</th>
+                                <th>참여자</th>
+                                <th>핀포인트</th>
+                                <th>쿠폰</th>
+                                <th>리뷰</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,17 +86,16 @@ const Campaign = (props: Props) => {
                                 searchList.map(v => (
                                     <tr key={v.id}>
                                         <td>{v.name}</td>
-                                        <td>{v.id}</td>
+                                        <td><IDViewer id={v.id} /></td>
+                                        <td><ImgsViewer imgs={v.imgs} /></td>
                                         <td>{v.ownner}</td>
                                         <td>{v.description}</td>
                                         <td>{toCommonDateTime(v.updateTime)}</td>
                                         <td>{v.region}</td>
-
-                                        {/* <td>imgs</td>
-                                        <td>users</td>
-                                        <td>pinpoints</td>
-                                        <td>coupons</td>
-                                        <td>comments</td> */}
+                                        <td>{v.users.length}</td>
+                                        <td>{v.pinpoints.length}</td>
+                                        <td>{v.coupons.length}</td>
+                                        <td>{v.comments.length}</td>
                                     </tr>
                                 ))
                             }

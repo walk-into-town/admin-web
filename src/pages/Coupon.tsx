@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { couponRead } from '../api'
 import { Container, HeaderWrapper, Title } from 'styles/global'
 import { toCommonDate } from '../util'
+import IDViewer from 'components/IDViewer'
+import ImgsViewer from 'components/ImgsViewer'
 
 
 const Coupon = () => {
@@ -60,26 +62,24 @@ const Coupon = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>imgs</th>
-                                <th>name</th>
-                                <th>id</th>
-                                <th>description</th>
-                                <th>goods</th>
-                                <th>endDate</th>
-                                <th>issued</th>
-                                <th>limit</th>
-                                <th>paymentCondition</th>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Img</th>
+                                <th>Description</th>
+                                <th>Goods</th>
+                                <th>EndDate</th>
+                                <th>Issued</th>
+                                <th>Limit</th>
+                                <th>PaymentCondition</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 searchList.map(v => (
                                     <tr key={v.id}>
-                                        <td>
-                                            {v.imgs !== "" && <img src={v.imgs} alt="쿠폰 이미지" width="50" />}
-                                        </td>
                                         <td>{v.name}</td>
-                                        <td>{v.id}</td>
+                                        <td><IDViewer id={v.id} /></td>
+                                        <td><ImgsViewer imgs={[v.imgs]} /></td>
                                         <td>{v.description}</td>
                                         <td>{v.goods}</td>
                                         <td>{toCommonDate(v.endDate)}</td>

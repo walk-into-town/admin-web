@@ -1,5 +1,4 @@
 @import url(./reset.css);
-@import url(./modal.css);
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 :root {
   --font-size: 16px;
@@ -111,9 +110,11 @@ table th {
   padding: .5rem .75rem;
   border: 1px solid var(--border-color);
   background-color: var(--table-th-bg-color);
+  vertical-align: middle;
 }
 
 table td {
   padding: .5rem .75rem;
   border: 1px solid var(--border-color);
+  vertical-align: middle;
 }
